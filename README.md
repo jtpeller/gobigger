@@ -46,7 +46,7 @@ func A000139(seqlen int64) []*big.Int {
         numer := big.NewInt(0).Mul(big.NewInt(2), threen)    // 2(3n)!
         denom := big.NewInt(0).Mul(twonplus1, nplus1)
 
-        // must manually convert numer & denom to floats!
+        // convert to floats!
         numer_f := new(big.Float)
         numer_f.SetInt(numer)
         numer_f.SetPrec(53)         // default prec is 53
@@ -69,8 +69,6 @@ func fact(a *big.Int) *big.Int {
     }
     return prod
 }
-
-
 ```
 
 Now, I'll demonstrate by using gobigger.go:
@@ -90,6 +88,8 @@ func A000139(seqlen int64) []*bint {
     return a
 }
 ```
+
+That goes from about 1000 characters to less than 500 characters; a reduction by over 50%! Plus, it is much easier to read and enables cleaner code for maintainability.
 
 ## How
 
