@@ -38,7 +38,7 @@ First, using only math/big:
 // let's write the following function using math/big:
 // A000139(n) = 2(3n)!/((2n+1)!*(n+1)!) (this is from OEIS)
 func A000139(seqlen int64) []*big.Int {
-    a := bigSlice(seqlen)
+    a := make([]*big.Int, 0)
     for n := int64(0); n < seqlen; n++ {
         nplus1 := fact(big.NewInt(n+1))        // (n+1)!
         twonplus1 := fact(big.NewInt(2*n+1))   // (2n+1)!
@@ -56,7 +56,7 @@ func A000139(seqlen int64) []*big.Int {
         denom_f.SetPrec(53)         // default prec is 53
 
         // a(n) = 2(3n)!/((2n+1)!*(n+1)!)
-        a[n] = big.NewFloat(0).Div(numer_f, denom_f)
+        a = append(arr, big.NewFloat(0).Div(numer_f, denom_f))
     }
     return a
 }
@@ -76,14 +76,14 @@ Now, I'll demonstrate by using gobigger.go:
 ```go
 func A000139(seqlen int64) []*bint {
     // a(n) = 2(3n)!/((2n+1)!*(n+1)!)
-    a := bigSlice(seqlen)
+    a := iSlice(seqlen)
     for n := int64(0); n < seqlen; n++ {
         nplus1 := fact(inew(n+1))        // (n+1)!
         twonplus1 := fact(inew(2*n+1))   // (2n+1)!
         threen := fact(inew(3*n))        // (3n)!
         numer := mul(inew(2), threen)    // 2(3n)!
         denom := mul(twonplus1, nplus1)
-        a[n] = floor(fdiv(tofloat(numer), tofloat(denom)))
+        a[n] = floor(fdiv(itof(numer), itof(denom)))
     }
     return a
 }

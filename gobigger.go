@@ -205,10 +205,10 @@ func divall(start *bint, nums ...*bint) *bint {
 }
 
 // returns a big int slice of given length. Prepopulated with 0s
-func bigSlice(len int64) []*bint {
+func iSlice(len int64) []*bint {
 	slice := make([]*bint, 0)
 	for i := int64(0); i < len; i++ {
-		slice = append(slice, big.NewInt(0))
+		slice = append(slice, zero())
 	}
 	return slice
 }
@@ -223,22 +223,22 @@ func fact(a *bint) *bint {
 }
 
 // Inc(a) returns a+1
-func inc(a *big.Int) *big.Int {
+func inc(a *bint) *bint {
 	return a.Add(a, inew(1))
 }
 
 // Dec(a) returns a-1
-func dec(a *big.Int) *big.Int {
+func dec(a *bint) *bint {
 	return a.Sub(a, inew(1))
 }
 
 // Pow(a, e) returns a^e
-func pow(a *big.Int, e *big.Int) *big.Int {
-	return zero().Exp(a, e, big.NewInt(0))
+func pow(a *bint, e *bint) *bint {
+	return zero().Exp(a, e, zero())
 }
 
 // gcd() -- simplified wrapper for the one in math.Big
-func gcd(a, b *big.Int) *big.Int {
+func gcd(a, b *bint) *bint {
 	return zero().GCD(nil, nil, a, b)
 }
 
@@ -281,7 +281,7 @@ func nPr(n, k *bint) *bint {
 
 // ### conversions
 
-// converts a big.Int to big.Float
+// converts a bint to bfloat
 func itof(a *bint) *bfloat {
 	r := new(big.Float)
 	r.SetInt(a)
@@ -289,7 +289,7 @@ func itof(a *bint) *bfloat {
 	return r
 }
 
-// converts a big.Int to big.Rat
+// converts a bint to big.Rat
 func itor(a *bint) *brat {
 	r := new(big.Rat)
 	r.SetFrac(a, inew(1))
@@ -316,6 +316,15 @@ func gteq(a, b *bint) bool { return gt(a, b) || equals(a, b) }
 // ==============================================
 // BIG FLOAT NEW FUNCTIONALITY
 // ==============================================
+
+// returns a big float slice of given length. Prepopulated with 0s
+func fSlice(len int64) []*bfloat {
+	slice := make([]*bfloat, 0)
+	for i := int64(0); i < len; i++ {
+		slice = append(slice, fzero())
+	}
+	return slice
+}
 
 // adds all big floats provided!
 func addall_f(nums ...*bfloat) *bfloat {
@@ -401,6 +410,15 @@ func gteq_f(a, b *bfloat) bool { return gt_f(a, b) || equals_f(a, b) }
 // ==============================================
 // BIG RAT NEW FUNCTIONALITY
 // ==============================================
+
+// returns a big float slice of given length. Prepopulated with 0s
+func rSlice(len int64) []*brat {
+	slice := make([]*brat, 0)
+	for i := int64(0); i < len; i++ {
+		slice = append(slice, rzero())
+	}
+	return slice
+}
 
 // adds all big rats provided!
 func addall_r(nums ...*brat) *brat {
