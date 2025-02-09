@@ -249,10 +249,8 @@ func gcd(a, b *bint) *bint {
  */
 func nCr(n, k *bint) *bint { 
 	// error checking
-	if lt(n, zero()) || lt(k, zero()) {
-		panic("Neither n nor k can be negative!")
-	} else if lt(n, k) {
-		panic("n cannot be less than k")
+	if lt(n, zero()) || lt(k, zero()) || lt(n, k) {
+		return zero()
 	}
 
 	// C(n,r) = n!/((n-r)!r!). Instead, do the shortcut. Modify k based on n
