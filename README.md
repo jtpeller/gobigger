@@ -1,5 +1,9 @@
 # gobigger
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/jtpeller/gobigger)](https://goreportcard.com/report/github.com/jtpeller/gobigger)
+[![Release](https://img.shields.io/github/release/jtpeller/gobigger.svg?style=flat-square)](https://github.com/jtpeller/gobigger/releases)
+![GitHub License](https://img.shields.io/github/license/jtpeller/gobigger)
+
 go bigger or go home-r?
 
 ## What

@@ -17,6 +17,7 @@ import (
 // ========================================================
 
 // how big the mantissa is going to be. For super extreme
+//
 //	precision, you could use a far larger number but this
 //	will use much more space / memory.
 const DEFAULT_FLOAT_PREC = 256
@@ -43,7 +44,7 @@ func inew(i int64) *bint { return big.NewInt(i) }
 
 func abs(a *bint) *bint { return zero().Abs(a) }
 
-func add(a, b *bint) *bint { 	return zero().Add(a, b) }
+func add(a, b *bint) *bint { return zero().Add(a, b) }
 
 func and(a, b *bint) *bint { return zero().And(a, b) }
 
@@ -110,7 +111,9 @@ func fzero() *bfloat { return big.NewFloat(0) }
 
 func fnew(a float64) *bfloat { return big.NewFloat(a) }
 
-func parseFloat(s string, base int, prec uint, mod big.RoundingMode) (f *bfloat, b int, err error) { return big.ParseFloat(s, base, prec, mod) }
+func parseFloat(s string, base int, prec uint, mod big.RoundingMode) (f *bfloat, b int, err error) {
+	return big.ParseFloat(s, base, prec, mod)
+}
 
 func fabs(a *bfloat) *bfloat { return fzero().Abs(a) }
 
@@ -118,7 +121,7 @@ func facc(a *bfloat) big.Accuracy { return a.Acc() }
 
 func fadd(a, b *bfloat) *bfloat { return fzero().Add(a, b) }
 
-func fappend(a *bfloat, buf []byte, fmt byte, prec int) []byte {return a.Append(buf, fmt, prec) }
+func fappend(a *bfloat, buf []byte, fmt byte, prec int) []byte { return a.Append(buf, fmt, prec) }
 
 func fcmp(a, b *bfloat) int { return a.Cmp(b) }
 
@@ -146,7 +149,7 @@ func trunc(a *bfloat) (*bint, big.Accuracy) { return a.Int(nil) }
 // BIG RAT WRAPPERS
 // ==============================================
 
-func rzero() *brat { return big.NewRat(0, 1)}
+func rzero() *brat { return big.NewRat(0, 1) }
 
 func rnew(a, b int64) *brat { return big.NewRat(a, b) }
 
@@ -243,11 +246,11 @@ func gcd(a, b *bint) *bint {
 }
 
 /**
- * nCr(n, k) -- Compute the binomial of two big ints! 
+ * nCr(n, k) -- Compute the binomial of two big ints!
  * 	AKA Binomial(n, k) or C(n, r)
  *  Will panic if: n < 0 || k < 0 || n < k
  */
-func nCr(n, k *bint) *bint { 
+func nCr(n, k *bint) *bint {
 	// error checking
 	if lt(n, zero()) || lt(k, zero()) || lt(n, k) {
 		return zero()
@@ -256,7 +259,7 @@ func nCr(n, k *bint) *bint {
 	// C(n,r) = n!/((n-r)!r!). Instead, do the shortcut. Modify k based on n
 	// k > n/2
 	if gt(k, div(n, inew(2))) {
-		k = sub(n, k)		// k = n - k
+		k = sub(n, k) // k = n - k
 	}
 	c := inew(1)
 	for i := inew(1); lteq(i, k); inc(i) {
@@ -291,7 +294,7 @@ func itof(a *bint) *bfloat {
 func itor(a *bint) *brat {
 	r := new(big.Rat)
 	r.SetFrac(a, inew(1))
-	return r 
+	return r
 }
 
 // ### comparisons
@@ -355,7 +358,7 @@ func divall_f(start *bfloat, nums ...*bfloat) *bfloat {
 }
 
 // computes a^e, where a is a float!
-func fpow(a *bfloat, e int64) *bfloat { 
+func fpow(a *bfloat, e int64) *bfloat {
 	if e == 0 {
 		return fnew(1)
 	}
@@ -363,7 +366,7 @@ func fpow(a *bfloat, e int64) *bfloat {
 	for i := int64(0); i < e-1; i++ {
 		r = fmul(r, a)
 	}
-	if e < 0 {		// negative exponents are reciprocals of positives
+	if e < 0 { // negative exponents are reciprocals of positives
 		return fdiv(fnew(1), r)
 	}
 	return r
@@ -403,7 +406,6 @@ func lteq_f(a, b *bfloat) bool { return lt_f(a, b) || equals_f(a, b) }
 
 // returns true/false of a >= b
 func gteq_f(a, b *bfloat) bool { return gt_f(a, b) || equals_f(a, b) }
-
 
 // ==============================================
 // BIG RAT NEW FUNCTIONALITY
