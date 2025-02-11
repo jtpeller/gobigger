@@ -1,5 +1,9 @@
 # gobigger
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/jtpeller/gobigger)](https://goreportcard.com/report/github.com/jtpeller/gobigger)
+[![Release](https://img.shields.io/github/release/jtpeller/gobigger.svg?style=flat-square)](https://github.com/jtpeller/gobigger/releases)
+![GitHub License](https://img.shields.io/github/license/jtpeller/gobigger)
+
 go bigger or go home-r?
 
 ## What
@@ -102,5 +106,3 @@ This can be used by following 3 easy steps:
 ## Future
 
 Updates would be pushed to this repo, but the base functionality is already here, so updates aren't necessary after copying the file (unless you want new stuff).
-
-TODO: I'm going to build a testing package to ensure these functions work as expected. Once the tester is complete, I will generate a release of v1.0.0
